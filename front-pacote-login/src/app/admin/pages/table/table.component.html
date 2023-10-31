@@ -1,0 +1,42 @@
+<button (click)="onLogout()">Logout</button>
+
+
+
+
+<body class="container ">
+    <h1 class="mb-4">Tabela Administrativa de Fornecedores</h1>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
+
+        <button type="button" class="btn btn-success" (click)=" onCreate()">+</button>
+    </div>
+
+    <table border="1" class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cnpj</th>
+                <th>Email</th>
+                <th>Anúncios</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todo of fornecedores$ | async">
+                <td>{{ todo.nome }}</td>
+                <td>{{todo.cnpj}}</td>
+                <td>{{todo.email}}</td>
+                <td>5</td>
+                <td>
+                    <button class="btn btn-primary mx-2" (click)="onEdit(todo.id)">Editar</button>
+                    <button class="btn btn-danger mx-2" (click)="onDelete(todo.id)">Deletar</button>
+                    <button class="btn btn-info mx-2">Anúncios</button>
+
+
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+</body>
