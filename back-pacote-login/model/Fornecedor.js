@@ -11,7 +11,7 @@ const Fornecedor = database.define('Fornecedor', {
         allowNull: false,
         primaryKey: true
     },
-    nome: {
+    nomeComercial: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -23,10 +23,19 @@ const Fornecedor = database.define('Fornecedor', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    descricao: {
+    razaoSocial: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    endereco: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    logoTipo: {
         type: Sequelize.STRING,
         allowNull: true
     }
+
 })
 
 

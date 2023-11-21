@@ -10,35 +10,43 @@
                     <form [formGroup]="fornecedorForm">
 
                         <div class="form-outline mb-4">
-                            <label class="form-label">Nome</label>
+                            <label class="form-label">Nome Comercial</label>
                             <input id="usuario" type="text" id="nome" class="form-control form-control-lg"
-                                formControlName="nome" required />
+                                formControlName="nomeComercial" required />
                         </div>
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="typeEmailX-2">Endereço de e-mail</label>
+                            <label class="form-label">Razão Social</label>
+                            <input id="usuario" type="text" id="nome" class="form-control form-control-lg"
+                                formControlName="razaoSocial" required />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="typeEmailX-2">E-mail</label>
                             <input id="usuario" type="email" id="typeEmailX-2" class="form-control form-control-lg"
                                 formControlName="email" required />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="typeEmailX-2">Endereço</label>
+                            <input id="usuario" type="email" class="form-control form-control-lg"
+                                formControlName="endereco" required />
                         </div>
 
 
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="typePasswordX-2">Cpnj</label>
-                            <input id="senha" type="password" id="cnpj" formControlName="cnpj" required
+                            <input type="string" id="cnpj" formControlName="cnpj" required
                                 class="form-control form-control-lg" />
                         </div>
 
 
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="typePasswordX-2">Descrição</label>
-                            <input id="senha" type="password" id="descricao" formControlName="descricao" required
-                                class="form-control form-control-lg" />
-                        </div>
+
 
                     </form>
                     <div style="display: flex; justify-content: space-evenly">
                         <button class="btn btn-danger " type="submit" (click)="onBack()">Voltar</button>
-                        <button class="btn btn-success " type="submit" (click)="onSubmit()">Salvar</button>
+                        <button class="btn btn-success " type="submit" (click)="onSubmit()"
+                            [disabled]="isSubmitDisabled()">Salvar</button>
                     </div>
 
 
@@ -50,3 +58,5 @@
         </div>
     </div>
 </div>
+
+{{fornecedorForm.value | json}}

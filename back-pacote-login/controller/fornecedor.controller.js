@@ -12,12 +12,21 @@ class FornecedorController {
 
   static async createFornecedor(req, res) {
     try {
-      const { nome, email, descricao, cnpj, } = req.body;
-      const data = {
-        nome,
+      const {
         email,
-        descricao,
+        nomeComercial,
         cnpj,
+        razaoSocial,
+        endereco,
+        logotipo
+      } = req.body;
+      const data = {
+        email,
+        nomeComercial,
+        cnpj,
+        razaoSocial,
+        endereco,
+        logotipo
       };
       //saving the user
       const userName = await Fornecedor.create(data);
@@ -49,12 +58,22 @@ class FornecedorController {
 
   static async editFornecedor(req, res) {
     try {
-      const { nome, email, descricao, cnpj, } = req.body;
-      const data = {
-        nome,
+      var fornecedor = await Fornecedor.findByPk(req.params.id)
+      const {
         email,
-        descricao,
+        nomeComercial,
         cnpj,
+        razaoSocial,
+        endereco,
+        logotipo
+      } = req.body;
+      const data = {
+        email: email,
+        nomeComercial: nomeComercial,
+        cnpj: cnpj,
+        razaoSocial: razaoSocial,
+        endereco: endereco,
+        logotipo: logotipo
       };
       const where = {
         where: {
@@ -62,7 +81,7 @@ class FornecedorController {
         }
       }
 
-      await Fornecedor.update(data, where);
+      fornecedor = await Fornecedor.update(data, where);
       return res.status(201).send(data);
     }
     catch (error) {

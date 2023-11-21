@@ -11,11 +11,8 @@ const Anuncio = database.define('Anuncio', {
         allowNull: false,
         primaryKey: true
     },
-    nome: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    regiao: {
+
+    estado: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -27,14 +24,46 @@ const Anuncio = database.define('Anuncio', {
         type: Sequelize.STRING,
         allowNull: false
     },
+
+    inicioAnuncio: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    fimAnuncio: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    mediaConsumo: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     multaCancelamento: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    fidelidadeMinima: {
+    nivelTensao: {
         type: Sequelize.STRING,
         allowNull: false
     },
+    status: {
+        type: Sequelize.ENUM("true", "false"),
+        allowNull: false
+    },
+    whatsApp: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    telefone: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+
+
+
 
 })
 

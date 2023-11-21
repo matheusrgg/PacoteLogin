@@ -14,9 +14,9 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./form.component.sass']
 })
 export class FormComponent {
-  id: number;
-
-
+  idRota: number;
+  isFormularioCompleto: boolean = false;
+  isFormularioAlterado: boolean = false;
 
   constructor(
     public router: Router,
@@ -30,36 +30,34 @@ export class FormComponent {
   fornecedorForm: FormGroup = new FormGroup({});
 
   ngOnInit() {
-    this.carregarIdRota()
-
-    this.fornecedorService.mapFornecedorGetIdTentaiva2(this.id).subscribe((data) => {
-
-
-      console.log("acessando o getByID Tentativa 2 DENTROO DO COMPONENT", data);
-    })
 
     this.fornecedorForm = this.formBuilder.group({
-      nome: ['', Validators.required],
+      nomeComercial: ['', Validators.required],
+      razaoSocial: ['', Validators.required],
       email: [null, [Validators.required, Validators.email]],
       cnpj: ['', [Validators.required, Validators.minLength(5)]],
-      descricao: ['', Validators.required],
+      endereco: ['', Validators.required],
+      logotipo: [''],
     });
+
+    this.fornecedorForm.valueChanges.subscribe(() => {
+      this.isFormularioCompleto = this.fornecedorForm.valid;
+      this.isFormularioAlterado = true;
+      console.log('Formulário alterado');
+    });
+
+    this.carregarIdRota()
+
   }
 
   onSubmit() {
-    console.log(this.fornecedorForm.value);
     if (this.fornecedorForm.valid) {
-      const val = this.fornecedorForm.value
-      this.fornecedorService.createFornecedor(val.email, val.nome, val.cnpj, val.descricao)
-        .subscribe({
-          next: (res) => {
-            this.router.navigate(["/admin/table"])
-          },
-          error: () => {
+      if (!this.idRota) {
+        this.createFornecedor()
 
-            alert("Login Failed!")
-          }
-        })
+      } else {
+        this.editFornecedor()
+      }
     }
   }
 
@@ -69,15 +67,69 @@ export class FormComponent {
 
   carregarIdRota() {
     this.route.paramMap.subscribe((params: any) => {
-      this.id = params.get('id')
-      console.log("id  vindoo da rottaa", this.id);
+      this.idRota = params.get('id')
+      this.patchFormEdit()
     });
   }
 
 
 
+  patchFormEdit() {
+    this.fornecedorService.mapFornecedorGetId(this.idRota).subscribe((data) => {
+      this.fornecedorForm.patchValue(data);
+      this.fornecedorForm.updateValueAndValidity()
+    });
+  }
 
+  createFornecedor() {
+    const val = this.fornecedorForm.value
+    const obj = {
+      nomeComercial: val.nomeComercial,
+      razaoSocial: val.razaoSocial,
+      email: val.email,
+      logoTipo: val.logotipo,
+      cnpj: val.cnpj,
+      endereco: val.endereco
+    }
 
+    this.fornecedorService.createFornecedor(obj)
+      .subscribe({
+        next: (res) => {
+          this.router.navigate(["/admin/table"])
+        },
+        error: () => {
 
+          alert("Login Failed!")
+        }
+      })
+  }
+
+  editFornecedor() {
+    const val = this.fornecedorForm.value
+    this.fornecedorService.editFornecedor
+      (
+        this.idRota,
+        val.nomeComercial,
+        val.razaoSocial,
+        val.email,
+        val.logotipo,
+        val.cnpj,
+        val.endereco)
+      .subscribe({
+        next: (res) => {
+          this.router.navigate(["/admin/table"])
+        },
+        error: () => {
+
+          alert("Login Failed!")
+        }
+      })
+  }
+
+  isSubmitDisabled() {
+    console.log('Checando formualrio alterado', this.isFormularioAlterado);
+    debugger
+    return !this.isFormularioAlterado || !this.isFormularioCompleto;
+  }
 
 }
