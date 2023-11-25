@@ -3,9 +3,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthStore } from 'src/app/services/auth.store';
-import { FornecedorService } from 'src/app/services/fornecedor.service';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthStore } from 'src/app/login/service/auth.store';
+import { FornecedorService } from 'src/app/admin/services/fornecedor.service';
+
 
 
 @Component({

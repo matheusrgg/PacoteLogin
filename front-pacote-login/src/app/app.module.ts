@@ -5,11 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './login/login.module';
+import { AdminModule } from './admin/admin.module';
+import { AuthStore } from './login/service/auth.store';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
 
 
 
@@ -20,7 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    LoginModule,
+    AdminModule
   ],
+
+
   providers: [],
   bootstrap: [AppComponent]
 })

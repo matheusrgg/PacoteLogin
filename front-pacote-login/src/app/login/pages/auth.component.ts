@@ -3,8 +3,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthStore } from 'src/app/services/auth.store';
-import { LoginService } from 'src/app/services/login.service';
+import { AdminInterface } from 'src/app/login/interfaces/admin.interface';
+import { AuthStore } from 'src/app/login/service/auth.store';
+
 
 
 @Component({
@@ -19,7 +20,8 @@ export class AuthComponent {
     public router: Router,
     private formBuilder: FormBuilder,
     private auth: AuthStore,
-    private loginService: LoginService
+    private loginService: AuthStore,
+
 
   ) { }
 
@@ -35,7 +37,13 @@ export class AuthComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const val = this.loginForm.value
-      this.auth.login(val.username, val.password)
+
+      const credentials: AdminInterface = {
+        username: val.username,
+        password: val.password
+      };
+
+      this.auth.login(credentials)
         .subscribe({
           next: (res) => {
             this.loginService.setToken(res);

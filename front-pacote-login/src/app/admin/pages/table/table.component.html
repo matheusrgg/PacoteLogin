@@ -1,9 +1,12 @@
-<button (click)="onLogout()">Logout</button>
-
-
-
-
 <body class="container ">
+    <nav class="navbar navbar-light bg-light mb-4">
+        <a class="navbar-brand" href="#">Seu Logo</a>
+        <ul class="navbar-nav ml-auto ml-3">
+            <li class="nav-item">
+                <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
+            </li>
+        </ul>
+    </nav>
     <h1 class="mb-4">Tabela Administrativa de Fornecedores</h1>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
 
@@ -22,13 +25,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let todo of fornecedores$ | async">
-                <td>{{ todo.nome }}</td>
+                <td>{{ todo.nomeComercial }}</td>
                 <td>{{todo.cnpj}}</td>
                 <td>{{todo.email}}</td>
                 <td>5</td>
                 <td>
                     <button class="btn btn-primary mx-2" (click)="onEdit(todo.id)">Editar</button>
-                    <button class="btn btn-danger mx-2" (click)="onDelete(todo.id)">Deletar</button>
                     <button class="btn btn-info mx-2">Anúncios</button>
 
 
